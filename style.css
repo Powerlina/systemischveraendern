@@ -1,0 +1,698 @@
+/* ===== Farben ===== */
+:root {
+    --stahlblau: #12418c;
+    --sandbeige: #DCD2C5;
+    --tuerkis: #e1ebd5;
+    --offwhite: #FAFAFA;
+    --terracotta: #ff7c04;
+    --hellblau: #bfcde1;
+    --mittelblau: #809ac2;
+
+}
+
+/* ===== Grundlayout ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+.title {
+    font-family: 'Poppins', sans-serif; /* passt zu deinen Headlines */
+    font-size: 3.0rem;  /* sehr groß, ggf. noch größer machen */
+    font-weight: 400;   /* fett */
+    color: var(--terracotta);      /* Highlight-Farbwert */
+    text-align: center; /* optional zentrieren */
+    margin: 1.5rem 0;   /* etwas Abstand nach oben/unten */
+}
+
+body {
+    margin: 0; /* Margin oben entfernen */
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--stahlblau);
+    background-color: var(--offwhite);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    text-align: center;
+    scroll-padding-top: 220px; /* Höhe der Navbar */
+}
+
+
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; 
+    color: var(--stahlblau);
+    margin: 0 0 1rem 0;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.highlight {
+    color: var(--terracotta);
+}
+
+section {
+    margin-bottom: 6rem; /* Abstand nach unten */
+    scroll-margin-top: 50px; /* Höhe deiner Navbar + Luft */
+}
+
+/* ==== Navbar Fix & Section Offset ==== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: var(--offwhite);
+    color: var(--stahlblau);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 2rem;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    justify-content: center; /* zentriert horizontal */
+    align-items: center;
+    font-weight: bold;
+    font-size: 2.0rem;
+    margin-bottom: 3rem; /* Abstand zur zweiten Zeile */
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    justify-content: center; /* zentriert die Links */
+    gap: 6.0rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: var(--stahlblau); /* Stahlblau statt Offwhite */
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.nav-links a:hover {
+    color: var(--tuerkis); /* gedämpftes Türkis */
+    transition: color 0.3s ease; /* sanfter Übergang */
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* ===== Hero-Bereich ===== */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    background: url('https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 1200px;  /* maximale Breite der Inhalte */
+    margin: 0 auto;     /* zentriert die Inhalte horizontal */
+    padding: 0 20px;    /* Abstand links und rechts */
+    box-sizing: border-box;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Türkises Band über ganze Breite */ 
+.turquoise-band { 
+    background-color: var(--tuerkis); 
+    width: 100%; 
+    padding: 0px 0 0px 0; /* oben unten Abstand */ }
+
+.hero-content {
+    position: relative;
+    color: var(--offwhite);
+    max-width: 800px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero-text {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.scroll-down {
+    color: var(--offwhite);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ===== Über Mich ===== */
+
+.about {
+    display: flex;
+    justify-content: flex-start; /* Inhalte starten links */
+    max-width: 1200px;           /* optional: wenn du die Breite begrenzen willst */
+    margin: 6rem auto 0 auto;    /* Abstand oben, zentriert */
+    gap: 2rem;
+    background: var(--offwhite);
+    box-sizing: border-box;
+    padding: 0;                  /* kein Padding */
+}
+
+.about-container {
+    display: flex;
+    align-items: stretch;        /* Bild und Text gleich hoch */
+    width: 100%;
+    gap: 40px;                   /* Abstand zwischen Bild und Text */
+}
+
+
+.about-image img {
+    width: 500px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin-left: -2rem;
+}
+
+.about-text {
+    flex: 1;
+    color: var(--stahlblau);
+    padding: 2rem 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .about-image img {
+        width: 100%;          /* Bild füllt Container horizontal */
+        height: 300px;        /* feste Höhe auf Mobile */
+    }
+
+    .about-text {
+        padding: 1rem 0;
+        justify-content: flex-start; /* Text oben starten */
+    }
+}
+
+/* ===== Approach ===== */
+
+.approach {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    max-width: 900px;  /* maximale Breite der Inhalte */
+    margin: 0 auto;     /* zentriert die Inhalte horizontal */
+    padding: 3.5rem 20px;    /* Abstand links und rechts */
+    box-sizing: border-box;
+    background: var(--offwhite);
+}
+
+.approach-text {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+/* ===== Accordion ===== */
+
+.accordion-section {
+    position: relative;
+    background: url('https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif') center/cover no-repeat;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 20px 2rem 20px;
+    box-sizing: border-box;
+}
+
+.accordion-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.accordion-supertitle {
+    position: relative;
+    text-align: left;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--terracotta);
+    padding: 0 40px;
+}
+
+.accordion-item {
+    background: transparent; /* Standard: transparent */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease, background 0.3s ease;
+}
+
+.accordion-item.active {
+    background: var(--offwhite); /* nur aktives Item hat weißen Hintergrund */
+}
+
+.accordion-item.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.accordion-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.accordion-header {
+    padding: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent; /* Header immer transparent, Hintergrund nur bei active */
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-header span {
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+/* Smooth Accordion Content Animation */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    background: transparent; /* Standard: transparent */
+    transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px; /* ausreichend für Inhalt */
+    padding: 1rem; /* Innenabstand beim Öffnen */
+}
+
+.accordion-item.active .accordion-header span {
+    transform: rotate(45deg); /* + wird zu x */
+}
+
+
+/* ===== Dienstleistungen ===== */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; /* horizontal zentrieren */
+    gap: 2rem;
+    background: var(--hellblau);
+    max-width: 1000px;  /* maximale Breite der Inhalte */
+    margin: 0 auto;     /* zentriert die Inhalte horizontal */
+    padding: 3.5rem 20px;    /* Abstand links und rechts */
+    box-sizing: border-box;
+}
+
+.services-text {
+    padding: 0 60px;    /* Abstand links und rechts */
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+/* Blaues Band über ganze Breite */ 
+.blue-band { 
+    background-color: var(--hellblau); 
+    width: 100%; 
+    padding: 0px 0 0px 0; /* oben unten Abstand */ }
+
+.offer {
+    display: flex;
+    align-items: center;   /* Bild und Text auf einer Höhe */
+    gap: 1rem;
+    margin: 2rem 0;        /* Abstand zu anderen Sektionen */
+    max-width: 1200px; /* Gesamtbreite von Bild + Box */
+    position: relative;    /* für die Überlappung wichtig */
+}
+
+.offer img {
+    width: 500px;
+    height: auto;
+    flex-shrink: 0;        /* verhindert, dass das Bild zu klein gedrückt wird */
+}
+
+.offer-text {
+    background: var(--offwhite);
+    padding: 2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-left: -60px;    /* überlappt das Bild */
+    z-index: 1;            /* Textbox liegt über dem Bild */
+    width: 600px;      /* verhindert, dass der Text zu breit läuft */
+}
+
+
+/* ===== CTA Button ===== */
+
+.cta-button {
+    display: inline-block;
+    background: var(--terracotta);
+    color: var(--offwhite);
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background: #a65f4e;
+}
+
+/* ===== Testimonials ===== */
+.testimonials {
+    background: var(--offwhite);
+    text-align: center;
+    max-width: 1200px;  /* maximale Breite der Inhalte */
+    margin: 4rem auto 0 auto;     /* zentriert die Inhalte horizontal */
+    padding: 0 20px 2rem 20px;    /* Abstand links und rechts */
+    box-sizing: border-box;
+}
+
+.testimonial {
+    display: none;
+}
+
+.testimonial.active {
+    display: block;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.testimonial-controls button {
+    background: var(--tuerkis);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* ===== Kontakt ===== */
+/* Blaues Band über ganze Breite */ 
+.middleblue-band { 
+    background-color: var(--mittelblau); 
+    width: 100%; 
+    padding: 0px 0 0px 0; /* oben unten Abstand */ }
+
+.contact-section {
+  max-width: 1000px;
+  margin: 6rem auto;
+  padding: 2rem;
+  text-align: center;
+  background: var(--mittelblau);
+}
+
+.contact-title {
+  font-size: 2rem;
+  color: var(--stahlblau);
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--stahlblau);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  padding: 1rem;
+  background: var(--terracotta);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: var(--stahlblau);
+}
+
+/* Kontaktinformationen */
+.info-title {
+  font-size: 1.5rem;
+  color: var(--stahlblau);
+  margin-bottom: 1.5rem;
+  margin-top: 6rem; /* Abstand nach oben anpassen */
+}
+
+.contact-info table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.contact-info th {
+  font-weight: bold;
+  color: var(--terracotta);
+  padding-bottom: 0.5rem;
+}
+
+.contact-info td {
+  padding: 0.75rem 1rem;
+  color: var(--stahlblau);
+}
+
+/* ===== Blog ===== */
+.blog-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    flex: 1 1 calc(33% - 2rem);
+    background: var(--offwhite);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ===== Blog Section ===== */
+.blog-section {
+    background-color: var(--tuerkis);
+    padding: 4rem 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blog-section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    color: var(--stahlblau);
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.blog-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1000px; /* max Breite der gesamten Blog-Section */
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Titel oben, Meta unten */
+    background: var(--offwhite);
+    width: 480px; 
+    height: 420px;  /* etwas mehr Platz für Titel */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.blog-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    height: 6.0rem;       /* Platz für bis zu 4 Zeilen */
+    overflow: hidden;
+    margin: 0 0 1.2rem 0;    /* Abstand nach unten, damit Meta nicht überlappt */
+}
+
+.blog-card p {
+    font-size: 0.95rem;
+    margin: 0.25rem 0;
+}
+
+.blog-meta {
+    font-size: 0.9rem;
+    color: var(--stahlblau);
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;    /* immer unten */
+}
+
+.blog-meta span {
+    display: block;
+    font-weight: bold;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+    .blog-card {
+        width: 45%;       /* 2 nebeneinander */
+        height: 400px;    /* angepasst für kleinere Bildschirme */
+    }
+
+    .blog-card h2 {
+        height: 6.0rem;   /* gleiche Höhe */
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-articles {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .blog-card {
+        width: 90%;
+        height: auto;     /* Höhe passt sich dem Inhalt an */
+    }
+
+    .blog-card h2 {
+        height: auto;     /* Zeilenhöhe passt sich automatisch */
+    }
+}
+
+/* ===== Animationen ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: var(--stahlblau);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 1rem;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .contact {
+        grid-template-columns: 1fr;
+    }
+
+    .offer {
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .offer-text {
+        margin-left: 0;
+        margin-top: -30px;
+    }
+}
+
+/* ========= Fix für Überschriften- UND Section-Sprung ========= */
+h1::before,
+h2::before,
+h3::before,
+section::before {
+    content: "";
+    display: block;
+    height: 50px;       /* Höhe der fixierten Navbar */
+    margin-top: -50px;  /* negativen Abstand setzen */
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Mobile Version: Navbar ist kleiner */
+@media (max-width: 768px) {
+    h1::before,
+    h2::before,
+    h3::before,
+    section::before {
+        height: 50px;       /* Höhe Navbar auf Mobile */
+        margin-top: -50px;
+    }
+}

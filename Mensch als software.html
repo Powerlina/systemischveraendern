@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der Mensch und seine Parallelen zur Software – Paulina Gräfe</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><img src="logo.png" alt="Logo"> Paulina Gräfe</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html#start">Start</a></li>
+                <li><a href="index.html#ueber-mich">Über Mich</a></li>
+                <li><a href="index.html#systemischer-ansatz">Systemischer Ansatz</a></li>
+                <li><a href="index.html#dienstleistungen">Dienstleistungen</a></li>
+                <li><a href="index.html#kontakt">Kontakt</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
+    </header>
+
+    <header>
+        <a href="blog.html">&larr; Zurück zum Blog</a>
+    </header>
+
+    <main>
+        <h1>Der Mensch und seine Parallelen zu Software</h1>
+        <img src="bilder/platzhalter.jpg" alt="Artikelbild" style="width:100%; max-height:400px; object-fit:cover; border-radius:8px; margin:15px 0;">
+        <h2>Menschliche Programmierung: Ein Blick auf unsere innere Software</h2>
+        <p>In der heutigen Zeit ... (Artikeltext) ...</p>
+
+        <!-- Views + Sharing -->
+        <div class="article-footer">
+            <p>Aufrufe: <span class="views" data-id="1" data-detail="true">0</span></p>
+            <div class="buttons">
+                <button class="btn" onclick="copyLink()">🔗 Link kopieren</button>
+                <button class="btn" onclick="shareLinkedIn()">💼 Auf LinkedIn teilen</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 Veränderungskompass – Alle Rechte vorbehalten
+    </footer>
+
+    <script>
+        // Link kopieren
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => alert("Link kopiert!"));
+        }
+
+        // LinkedIn teilen
+        function shareLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            window.open(shareUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
+
