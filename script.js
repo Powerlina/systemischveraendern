@@ -165,3 +165,22 @@ if (typeof firebase !== 'undefined') {
         });
     });
 }
+
+// Aktueller Artikel (z.B. aus body oder main)
+const currentUrl = window.location.pathname.split("/").pop();
+
+// Alle Blogartikel auf der Hauptseite selektieren
+const allArticles = document.querySelectorAll('.blog-section .blog-card');
+
+// Container für Related Articles
+const relatedContainer = document.querySelector('.related-articles .blog-articles');
+
+allArticles.forEach(article => {
+    const href = article.getAttribute('href');
+    if (!href.includes(currentUrl)) { // den aktuellen Artikel ausschließen
+        const clone = article.cloneNode(true);
+        relatedContainer.appendChild(clone);
+    }
+});
+
+
