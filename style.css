@@ -269,10 +269,11 @@ section {
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     overflow: hidden;
-    transform: translateY(50px);
-    opacity: 0;
+    transform: translateY(0);
+    opacity: 1;
     transition: transform 0.6s ease, opacity 0.6s ease, background 0.3s ease;
 }
+
 
 .accordion-item.active {
     background: var(--offwhite); /* nur aktives Item hat weißen Hintergrund */
@@ -307,20 +308,37 @@ section {
 
 /* Smooth Accordion Content Animation */
 .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 1rem;
-    background: transparent; /* Standard: transparent */
-    transition: max-height 0.35s ease, padding 0.35s ease;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+  background: transparent;
+  transition: max-height 0.35s ease, padding 0.35s ease;
 }
 
 .accordion-item.active .accordion-content {
-    max-height: 500px; /* ausreichend für Inhalt */
-    padding: 1rem; /* Innenabstand beim Öffnen */
+  padding: 1rem;
+  max-height: 500px; /* JS überschreibt dies dynamisch */
 }
 
 .accordion-item.active .accordion-header span {
     transform: rotate(45deg); /* + wird zu x */
+}
+
+/* ===== Accordion Responsive ===== */
+@media (max-width: 1024px) {
+    .accordion-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 Spalten auf Tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .accordion-container {
+        grid-template-columns: 1fr; /* 1 Spalte auf Smartphones */
+    }
+
+    .accordion-item {
+        margin-bottom: 1rem; /* Abstand zwischen Items */
+    }
 }
 
 
@@ -507,131 +525,106 @@ section {
   color: var(--stahlblau);
 }
 
-/* ===== Blog ===== */
-.blog-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    flex: 1 1 calc(33% - 2rem);
-    background: var(--offwhite);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+/* ===== Blog Seite ===== */ 
+.blog-section { 
+    background-color: var(--tuerkis); 
+    padding: 4rem 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+} 
 
-/* ===== Blog Section ===== */
-.blog-section {
-    background-color: var(--tuerkis);
-    padding: 4rem 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+.blog-section-title { 
+    font-family: 'Poppins', sans-serif; 
+    font-size: 2.5rem; 
+    color: var(--stahlblau); 
+    margin-bottom: 3rem; 
+    text-align: center; 
+} 
 
-.blog-section-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    color: var(--stahlblau);
-    margin-bottom: 3rem;
-    text-align: center;
-}
-
-.blog-articles {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.blog-articles { 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* immer 2 Spalten */
     gap: 2rem;
-    max-width: 1000px; /* max Breite der gesamten Blog-Section */
+    max-width: 1000px; /* max Breite der gesamten Blog-Section */ 
+    margin: 0 auto;
 }
 
-.blog-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Titel oben, Meta unten */
-    background: var(--offwhite);
-    width: 480px; 
-    height: 420px;  /* etwas mehr Platz für Titel */
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-}
-
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.blog-card img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-}
-
-.blog-card h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.4;
-    height: 6.0rem;       /* Platz für bis zu 4 Zeilen */
-    overflow: hidden;
-    margin: 0 0 1.2rem 0;    /* Abstand nach unten, damit Meta nicht überlappt */
-}
-
-.blog-card p {
-    font-size: 0.95rem;
-    margin: 0.25rem 0;
-}
-
-.blog-meta {
-    font-size: 0.9rem;
-    color: var(--stahlblau);
-    display: flex;
-    justify-content: space-between;
-    margin-top: auto;    /* immer unten */
-}
-
-.blog-meta span {
-    display: block;
-    font-weight: bold;
-}
-
-/* ===== Responsive ===== */
 @media (max-width: 1024px) {
-    .blog-card {
-        width: 45%;       /* 2 nebeneinander */
-        height: 400px;    /* angepasst für kleinere Bildschirme */
+    .blog-articles {
+        grid-template-columns: 1fr; /* auf Tablets/Handys 1 Spalte */
     }
+}
 
-    .blog-card h2 {
-        height: 6.0rem;   /* gleiche Höhe */
+
+.blog-card { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; /* Titel oben, Meta unten */ 
+    background: var(--offwhite); 
+    width: 480px; 
+    height: 420px; /* etwas mehr Platz für Titel */ 
+    padding: 1.5rem; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+    text-decoration: none; 
+    color: inherit; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    overflow: hidden; 
+} 
+
+.blog-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+} 
+
+.blog-card img { 
+    width: 100%; 
+    height: 140px; 
+    object-fit: cover; 
+    border-radius: 4px; 
+    margin-bottom: 1rem; 
+} 
+
+.blog-card h2 { 
+    font-family: 'Poppins', sans-serif; 
+    font-size: 1.5rem; 
+    font-weight: 600; 
+    line-height: 1.4; 
+    height: 6.0rem; /* Platz für bis zu 4 Zeilen */ 
+    overflow: hidden; 
+    margin: 0 0 1.2rem 0; /* Abstand nach unten, damit Meta nicht überlappt */ 
+} 
+.blog-card p { 
+    font-size: 0.95rem; 
+    margin: 0.25rem 0; 
+} 
+
+.blog-meta { 
+    font-size: 0.9rem; 
+    color: var(--stahlblau); 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: auto; /* immer unten */ 
+} 
+
+.blog-meta span { 
+    display: block; 
+    font-weight: bold; 
+}
+
+/* Responsive Anpassung */
+@media (max-width: 1024px) {
+    .blog-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    .blog-articles {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .blog-card {
-        width: 90%;
-        height: auto;     /* Höhe passt sich dem Inhalt an */
-    }
-
-    .blog-card h2 {
-        height: auto;     /* Zeilenhöhe passt sich automatisch */
+    .blog-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem 10px;
     }
 }
 
