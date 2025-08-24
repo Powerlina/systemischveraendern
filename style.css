@@ -689,3 +689,95 @@ section::before {
         margin-top: -50px;
     }
 }
+
+/* ===== Türkises Band ===== */
+.blog-hero-band {
+    background-color: var(--tuerkis);
+    width: 100%;
+    padding: 8rem 0 4rem 0; /* mehr Höhe für hero */
+    text-align: center;
+}
+
+.blog-hero h1 {
+    color: var(--offwhite);
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+/* ===== Weißer Artikelbereich ===== */
+.blog-content {
+    background-color: var(--offwhite);
+    max-width: 900px;
+    margin: -120px auto 4rem auto; /* überlappt das türkise Band */
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: var(--stahlblau);
+    line-height: 1.8;
+    font-family: 'Nunito', sans-serif;
+    position: relative;
+    z-index: 10; /* sicherstellen, dass es über dem Band liegt */
+}
+
+.blog-content img {
+    width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+.blog-content h2 {
+    color: var(--stahlblau);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+}
+
+/* ===== Share Buttons ===== */
+.share-article {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: var(--stahlblau);
+}
+
+.share-article span {
+    font-weight: 600;
+}
+
+.share-icon svg {
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s;
+    fill: var(--stahlblau);
+    cursor: pointer;
+}
+
+.share-icon:hover svg {
+    fill: var(--tuerkis);
+}
+
+/* ===== Weitere Blogartikel ===== */
+.related-articles {
+    background-color: var(--tuerkis);
+    padding: 4rem 2rem;
+}
+
+.related-articles h2 {
+    color: var(--stahlblau);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.related-articles .blog-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
