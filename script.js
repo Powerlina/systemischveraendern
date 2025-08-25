@@ -2,11 +2,19 @@
 const menuToggle = document.getElementById('menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
-if (menuToggle) {
+if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        navLinks.classList.toggle('show');
+    });
+
+    // Menü schließt automatisch, wenn Link geklickt wird
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('show');
+        });
     });
 }
+
 
 // ==== Accordion für Systemischer Ansatz ====
 document.addEventListener("DOMContentLoaded", () => {
