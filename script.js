@@ -189,6 +189,6 @@ allArticles.forEach(article => {
         const clone = article.cloneNode(true);
         relatedContainer.appendChild(clone);
     }
-});
+})
 
 
