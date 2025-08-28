@@ -649,6 +649,16 @@ section::before {
     font-size: 1.8rem;
 }
 
+.blog-content p {
+    color: var(--stahlblau);
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+.blog-content ul {
+    text-align: left;
+}
+
 /* ===== Share Buttons ===== */
 .share-article {
     display: flex;
@@ -681,7 +691,7 @@ section::before {
     padding: 4rem 2rem;
 }
 
-.related-articles h2 {
+.related-articles h3 {
     color: var(--stahlblau);
     text-align: center;
     font-family: 'Poppins', sans-serif;
@@ -784,9 +794,14 @@ section::before {
     text-align: left;
 }
 
-.description-container h2,
+.description-container h2 {
+margin: 0; /* keine zusätzlichen Lücken */
+font-size: 1.5rem;
+}
+
 .description-container p {
     margin: 0; /* keine zusätzlichen Lücken */
+    font-size: 1.2rem;
 }
 
 /* Rahmenbedingungen */
@@ -804,13 +819,13 @@ section::before {
 }
 
 .conditions-container h3 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .conditions-container p {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 

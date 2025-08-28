@@ -174,21 +174,43 @@ if (typeof firebase !== 'undefined') {
     });
 }
 
-// Aktueller Artikel (z.B. aus body oder main)
-const currentUrl = window.location.pathname.split("/").pop();
 
-// Alle Blogartikel auf der Hauptseite selektieren
-const allArticles = document.querySelectorAll('.blog-section .blog-card');
+// script.js (für Blog-Seite)
+document.addEventListener("DOMContentLoaded", async () => {
+    const currentUrl = window.location.pathname.split("/").pop(); // aktueller Artikel
+    const relatedContainer = document.querySelector('.related-articles .blog-articles');
+    if (!relatedContainer) return;
 
-// Container für Related Articles
-const relatedContainer = document.querySelector('.related-articles .blog-articles');
+    try {
+        // Blogübersichtsseite laden
+        const response = await fetch('blog.html');
+        const text = await response.text();
 
-allArticles.forEach(article => {
-    const href = article.getAttribute('href');
-    if (!href.includes(currentUrl)) { // den aktuellen Artikel ausschließen
-        const clone = article.cloneNode(true);
-        relatedContainer.appendChild(clone);
+        // HTML parsen
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+
+        // Alle Blog-Karten auf der Übersichtsseite
+        const allArticles = doc.querySelectorAll('.blog-section .blog-card');
+        let count = 0;
+        const maxRelated = 3;
+
+        allArticles.forEach(article => {
+            const href = article.getAttribute('href');
+            if (!href.includes(currentUrl) && count < maxRelated) {
+                // Artikel klonen und einfügen
+                const clone = article.cloneNode(true);
+                relatedContainer.appendChild(clone);
+                count++;
+            }
+        });
+
+        if (count === 0) {
+            relatedContainer.innerHTML = '<p>Keine weiteren Artikel verfügbar.</p>';
+        }
+
+    } catch (error) {
+        console.error('Artikel konnten nicht geladen werden.', error);
+        relatedContainer.innerHTML = '<p>Artikel konnten nicht geladen werden.</p>';
     }
-})
-
-
+});
