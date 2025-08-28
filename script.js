@@ -175,7 +175,7 @@ if (typeof firebase !== 'undefined') {
 };
 
 
-fetch('/systemischveraendern/blog.html') // Pfad zur Blog-Übersicht auf GitHub Pages
+fetch('Powerlina/systemischveraendern/blog.html') // Pfad zur Blog-Übersicht auf GitHub Pages
   .then(res => res.text())
   .then(htmlText => {
     const parser = new DOMParser();
