@@ -13,7 +13,7 @@ if (menuToggle && navLinks) {
             navLinks.classList.remove('show');
         });
     });
-}
+};
 
 
 // ==== Accordion für Systemischer Ansatz ====
@@ -124,7 +124,7 @@ if(contactForm) {
             alert("Leider gab es ein Problem beim Senden. Bitte versuche es erneut.");
         });
     });
-}
+};
 
 // ==== Firebase Blog Views ====
 if (typeof firebase !== 'undefined') {
@@ -172,45 +172,38 @@ if (typeof firebase !== 'undefined') {
             });
         });
     });
-}
+};
 
 
-// script.js (für Blog-Seite)
-document.addEventListener("DOMContentLoaded", async () => {
-    const currentUrl = window.location.pathname.split("/").pop(); // aktueller Artikel
+fetch('/systemischveraendern/blog.html') // Pfad zur Blog-Übersicht auf GitHub Pages
+  .then(res => res.text())
+  .then(htmlText => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, 'text/html');
+    const allArticles = doc.querySelectorAll('.blog-section .blog-card');
+    
     const relatedContainer = document.querySelector('.related-articles .blog-articles');
     if (!relatedContainer) return;
 
-    try {
-        // Blogübersichtsseite laden
-        const response = await fetch('blog.html');
-        const text = await response.text();
+    const currentUrl = window.location.pathname.split("/").pop();
+    let count = 0;
+    const maxRelated = 3;
 
-        // HTML parsen
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-
-        // Alle Blog-Karten auf der Übersichtsseite
-        const allArticles = doc.querySelectorAll('.blog-section .blog-card');
-        let count = 0;
-        const maxRelated = 3;
-
-        allArticles.forEach(article => {
-            const href = article.getAttribute('href');
-            if (!href.includes(currentUrl) && count < maxRelated) {
-                // Artikel klonen und einfügen
-                const clone = article.cloneNode(true);
-                relatedContainer.appendChild(clone);
-                count++;
-            }
-        });
-
-        if (count === 0) {
-            relatedContainer.innerHTML = '<p>Keine weiteren Artikel verfügbar.</p>';
+    allArticles.forEach(article => {
+        const href = article.getAttribute('href');
+        if (!href.includes(currentUrl) && count < maxRelated) {
+            const clone = article.cloneNode(true);
+            relatedContainer.appendChild(clone);
+            count++;
         }
+    });
 
-    } catch (error) {
-        console.error('Artikel konnten nicht geladen werden.', error);
-        relatedContainer.innerHTML = '<p>Artikel konnten nicht geladen werden.</p>';
+    if (count === 0) {
+        relatedContainer.innerHTML = '<p>Keine weiteren Artikel verfügbar.</p>';
     }
-});
+  })
+  .catch(err => {
+    console.error('Artikel konnten nicht geladen werden.', err);
+    const relatedContainer = document.querySelector('.related-articles .blog-articles');
+    if (relatedContainer) relatedContainer.innerHTML = '<p>Artikel konnten nicht geladen werden.</p>';
+  });
