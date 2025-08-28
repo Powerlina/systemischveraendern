@@ -175,35 +175,44 @@ if (typeof firebase !== 'undefined') {
 };
 
 
-fetch('Powerlina/systemischveraendern/blog.html') // Pfad zur Blog-Übersicht auf GitHub Pages
-  .then(res => res.text())
-  .then(htmlText => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlText, 'text/html');
-    const allArticles = doc.querySelectorAll('.blog-section .blog-card');
-    
+// script.js für Blogartikel-Seite
+document.addEventListener("DOMContentLoaded", async () => {
+    const currentUrl = window.location.pathname.split("/").pop(); // aktueller Artikel
     const relatedContainer = document.querySelector('.related-articles .blog-articles');
+
     if (!relatedContainer) return;
 
-    const currentUrl = window.location.pathname.split("/").pop();
-    let count = 0;
-    const maxRelated = 3;
+    try {
+        // Die blog.html von GitHub Pages laden
+        const response = await fetch('https://powerlina.github.io/systemischveraendern/blog.html');
+        if (!response.ok) throw new Error('Blogseite konnte nicht geladen werden.');
 
-    allArticles.forEach(article => {
-        const href = article.getAttribute('href');
-        if (!href.includes(currentUrl) && count < maxRelated) {
-            const clone = article.cloneNode(true);
-            relatedContainer.appendChild(clone);
-            count++;
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, 'text/html');
+
+        // Alle Blogkarten aus blog.html selektieren
+        const allArticles = doc.querySelectorAll('.blog-section .blog-card');
+
+        let count = 0;
+        const maxRelated = 3;
+
+        allArticles.forEach(article => {
+            const href = article.getAttribute('href');
+            if (!href.includes(currentUrl) && count < maxRelated) {
+                // Node klonen und in Related Articles einfügen
+                const clone = article.cloneNode(true);
+                relatedContainer.appendChild(clone);
+                count++;
+            }
+        });
+
+        if (count === 0) {
+            relatedContainer.innerHTML = '<p>Keine weiteren Artikel verfügbar.</p>';
         }
-    });
 
-    if (count === 0) {
-        relatedContainer.innerHTML = '<p>Keine weiteren Artikel verfügbar.</p>';
+    } catch (err) {
+        console.error(err);
+        relatedContainer.innerHTML = '<p>Artikel konnten nicht geladen werden.</p>';
     }
-  })
-  .catch(err => {
-    console.error('Artikel konnten nicht geladen werden.', err);
-    const relatedContainer = document.querySelector('.related-articles .blog-articles');
-    if (relatedContainer) relatedContainer.innerHTML = '<p>Artikel konnten nicht geladen werden.</p>';
-  });
+});
