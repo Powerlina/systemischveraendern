@@ -128,27 +128,50 @@ if(contactForm) {
 
 // ==== Blog Views ====
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // =====================
-  // Views zählen
-  // =====================
-  const counters = document.querySelectorAll(".views");
-  counters.forEach(counter => {
-    const id = counter.dataset.id;
-    const isDetail = counter.dataset.detail === "true";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
 
-    let views = parseInt(localStorage.getItem("views-" + id)) || 0;
+const firebaseConfig = {
+  apiKey: "AIzaSyBDldnZMkQnOmC_wtJ0p6tt6ADadkUzRak",
+  authDomain: "systemischveraendern.firebaseapp.com",
+  projectId: "systemischveraendern",
+  storageBucket: "systemischveraendern.firebasestorage.app",
+  messagingSenderId: "937662984790",
+  appId: "1:937662984790:web:b15591f5ccb9d892bf41f7",
+  measurementId: "G-PPL2L5R0JP"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+// === Views Zähler ===
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".views").forEach(async el => {
+    const blogId = el.dataset.id;
+    const isDetail = el.dataset.detail === "true";
+    const ref = doc(db, "blogViews", blogId);
+
+    onSnapshot(ref, (docSnap) => {
+      if (docSnap.exists()) {
+        el.textContent = docSnap.data().views;
+      } else {
+        el.textContent = 0;
+      }
+    });
 
     if (isDetail) {
-      views++;
-      localStorage.setItem("views-" + id, views);
-      console.log(`[Views] Artikel ${id} auf Detailseite geöffnet → neue Views: ${views}`);
-    } else {
-      console.log(`[Views] Artikel ${id} auf Übersicht → aktuelle Views: ${views}`);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const currentViews = snap.data().views || 0;
+        await updateDoc(ref, { views: currentViews + 1 });
+      } else {
+        await setDoc(ref, { views: 1 });
+      }
     }
-
-    counter.textContent = views;
   });
+});
 
 
   // =====================
@@ -201,5 +224,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error("[Related] Fehler beim Laden:", err);
     relatedContainer.innerHTML = "<p>Artikel konnten nicht geladen werden.</p>";
-  }
-});
+  };
