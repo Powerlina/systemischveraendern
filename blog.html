@@ -59,10 +59,28 @@
     </section>
 </main>
 
-<script type="module">
-  import { db } from "./path/to/your/firebase-init.js";
-  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
+<!-- ================= FIREBASE & VIEWS LESEN ================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+  // Firebase Config (gleich wie in mensch_als_software.html)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBDldnZMkQnOmC_wtJ0p6tt6ADadkUzRak",
+    authDomain: "systemischveraendern.firebaseapp.com",
+    projectId: "systemischveraendern",
+    storageBucket: "systemischveraendern.firebasestorage.app",
+    messagingSenderId: "937662984790",
+    appId: "1:937662984790:web:b15591f5ccb9d892bf41f7",
+    measurementId: "G-PPL2L5R0JP"
+  };
+
+  // Firebase init
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Views laden und in Kacheln einsetzen
   document.addEventListener("DOMContentLoaded", async () => {
     const viewsEls = document.querySelectorAll(".views[data-id]");
 
