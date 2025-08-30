@@ -581,19 +581,6 @@ section {
     font-weight: bold; 
 }
 
-/* ===== weitere artikel ===== */
-.related-articles .blog-articles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.related-articles .blog-card {
-  width: 300px; /* kleiner, flexibler */
-  height: auto; /* keine fixe Höhe */
-}
-
 /* ===== Animationen ===== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }

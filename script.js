@@ -126,6 +126,7 @@ if(contactForm) {
     });
 };
 
+
 // ==== Blog Views ====
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -171,64 +172,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-});
-
-
-  // =====================
-  // Weitere Artikel laden
-  // =====================
-  // script.js
-document.addEventListener("DOMContentLoaded", async () => {
-  const relatedSection = document.querySelector(".related-articles .blog-articles");
-
-  if (!relatedSection) {
-    console.log("👉 Keine Related-Articles-Section gefunden – Script läuft nur auf Detailseiten.");
-    return;
-  }
-
-  try {
-    console.log("👉 Versuche Blogübersicht zu laden…");
-    const response = await fetch("https://powerlina.github.io/systemischveraendern/blog.html");
-
-    if (!response.ok) throw new Error("Fehler beim Laden der Blogübersicht");
-
-    const text = await response.text();
-    console.log("👉 Blogübersicht erfolgreich geladen.");
-
-    // HTML parsen
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
-
-    // Alle Artikel auf der Übersicht holen
-    const articles = Array.from(doc.querySelectorAll(".blog-articles .blog-card"));
-    console.log(`👉 ${articles.length} Artikel auf der Blogübersicht gefunden.`);
-
-    if (articles.length === 0) {
-      relatedSection.innerHTML = "<p>Keine weiteren Artikel gefunden.</p>";
-      return;
-    }
-
-    // Aktuelle Seite erkennen (Dateiname)
-    const currentPage = window.location.pathname.split("/").pop();
-    console.log("👉 Aktuelle Seite:", currentPage);
-
-    // Filter: Nur Artikel, die NICHT die aktuelle Seite sind
-    const filtered = articles.filter(a => {
-      const href = a.getAttribute("href");
-      return href !== currentPage;
-    });
-
-    console.log(`👉 ${filtered.length} Artikel nach Filter (exkl. aktuelle Seite).`);
-
-    // Maximal 3 Artikel einfügen
-    filtered.slice(0, 3).forEach(article => {
-      relatedSection.appendChild(article.cloneNode(true));
-    });
-
-    console.log("👉 Artikel erfolgreich eingefügt:", relatedSection.querySelectorAll(".blog-card").length);
-
-  } catch (err) {
-    console.error("❌ Fehler beim Laden der weiteren Artikel:", err);
-    relatedSection.innerHTML = "<p>Artikel konnten nicht geladen werden.</p>";
-  }
 });

@@ -59,6 +59,31 @@
     </section>
 </main>
 
+<script type="module">
+  import { db } from "./path/to/your/firebase-init.js";
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    const viewsEls = document.querySelectorAll(".views[data-id]");
+
+    for (const el of viewsEls) {
+      const id = el.getAttribute("data-id");
+      const ref = doc(db, "views", id);
+
+      try {
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          el.textContent = snap.data().count;
+        } else {
+          el.textContent = 0;
+        }
+      } catch (err) {
+        console.error("Fehler beim Laden der Views:", err);
+      }
+    }
+  });
+</script>
+
 <script type="module" src="script.js"></script>
 </body>
 </html>
