@@ -126,93 +126,80 @@ if(contactForm) {
     });
 };
 
-// ==== Firebase Blog Views ====
-if (typeof firebase !== 'undefined') {
-    import("https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js").then(({ initializeApp }) => {
-        import("https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js").then(({ getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot }) => {
-            import("https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js").then(({ getAnalytics }) => {
+// ==== Blog Views ====
 
-                const firebaseConfig = {
-                    apiKey: "AIzaSyBDldnZMkQnOmC_wtJ0p6tt6ADadkUzRak",
-                    authDomain: "systemischveraendern.firebaseapp.com",
-                    projectId: "systemischveraendern",
-                    storageBucket: "systemischveraendern.firebasestorage.app",
-                    messagingSenderId: "937662984790",
-                    appId: "1:937662984790:web:b15591f5ccb9d892bf41f7",
-                    measurementId: "G-PPL2L5R0JP"
-                };
-
-                const app = initializeApp(firebaseConfig);
-                const analytics = getAnalytics(app);
-                const db = getFirestore(app);
-
-                document.querySelectorAll(".views").forEach(async el => {
-                    const blogId = el.dataset.id;
-                    const isDetail = el.dataset.detail === "true";
-                    const ref = doc(db, "blogViews", blogId);
-
-                    onSnapshot(ref, (docSnap) => {
-                        if (docSnap.exists()) {
-                            el.textContent = docSnap.data().views;
-                        } else {
-                            el.textContent = 0;
-                        }
-                    });
-
-                    if (isDetail) {
-                        const snap = await getDoc(ref);
-                        if (snap.exists()) {
-                            const currentViews = snap.data().views || 0;
-                            await updateDoc(ref, { views: currentViews + 1 });
-                        } else {
-                            await setDoc(ref, { views: 1 });
-                        }
-                    }
-                });
-            });
-        });
-    });
-};
-
-
-// script.js für Blogartikel-Seite
 document.addEventListener("DOMContentLoaded", async () => {
-    const currentUrl = window.location.pathname.split("/").pop(); // aktueller Artikel
-    const relatedContainer = document.querySelector('.related-articles .blog-articles');
+  // =====================
+  // Views zählen
+  // =====================
+  const counters = document.querySelectorAll(".views");
+  counters.forEach(counter => {
+    const id = counter.dataset.id;
+    const isDetail = counter.dataset.detail === "true";
 
-    if (!relatedContainer) return;
+    let views = parseInt(localStorage.getItem("views-" + id)) || 0;
 
-    try {
-        // Die blog.html von GitHub Pages laden
-        const response = await fetch('https://powerlina.github.io/systemischveraendern/blog.html');
-        if (!response.ok) throw new Error('Blogseite konnte nicht geladen werden.');
-
-        const htmlText = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, 'text/html');
-
-        // Alle Blogkarten aus blog.html selektieren
-        const allArticles = doc.querySelectorAll('.blog-section .blog-card');
-
-        let count = 0;
-        const maxRelated = 3;
-
-        allArticles.forEach(article => {
-            const href = article.getAttribute('href');
-            if (!href.includes(currentUrl) && count < maxRelated) {
-                // Node klonen und in Related Articles einfügen
-                const clone = article.cloneNode(true);
-                relatedContainer.appendChild(clone);
-                count++;
-            }
-        });
-
-        if (count === 0) {
-            relatedContainer.innerHTML = '<p>Keine weiteren Artikel verfügbar.</p>';
-        }
-
-    } catch (err) {
-        console.error(err);
-        relatedContainer.innerHTML = '<p>Artikel konnten nicht geladen werden.</p>';
+    if (isDetail) {
+      views++;
+      localStorage.setItem("views-" + id, views);
+      console.log(`[Views] Artikel ${id} auf Detailseite geöffnet → neue Views: ${views}`);
+    } else {
+      console.log(`[Views] Artikel ${id} auf Übersicht → aktuelle Views: ${views}`);
     }
+
+    counter.textContent = views;
+  });
+
+
+  // =====================
+  // Weitere Artikel laden
+  // =====================
+  const relatedContainer = document.querySelector(".related-articles .blog-articles");
+  if (!relatedContainer) {
+    console.log("[Related] Keine .related-articles gefunden → Script bricht hier ab");
+    return;
+  }
+
+  try {
+    console.log("[Related] Versuche blog.html von GitHub zu laden...");
+    const response = await fetch("https://powerlina.github.io/systemischveraendern/blog.html");
+    if (!response.ok) throw new Error("Blogseite konnte nicht geladen werden");
+
+    const htmlText = await response.text();
+    console.log("[Related] Blogseite erfolgreich geladen, Länge:", htmlText.length);
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, "text/html");
+
+    const allArticles = doc.querySelectorAll(".blog-section .blog-card");
+    console.log("[Related] Gefundene Artikel:", allArticles.length);
+
+    const currentUrl = window.location.pathname.split("/").pop();
+    console.log("[Related] Aktuelle Seite:", currentUrl);
+
+    let count = 0;
+    const maxRelated = 3;
+
+    allArticles.forEach(article => {
+      const href = article.getAttribute("href");
+      console.log("[Related] Prüfe Artikel:", href);
+
+      if (!href.includes(currentUrl) && count < maxRelated) {
+        console.log("   ➝ Wird als Related hinzugefügt");
+        const clone = article.cloneNode(true);
+        relatedContainer.appendChild(clone);
+        count++;
+      } else {
+        console.log("   ➝ Übersprungen (ist aktuelle Seite oder Limit erreicht)");
+      }
+    });
+
+    if (count === 0) {
+      console.log("[Related] Keine weiteren Artikel gefunden");
+      relatedContainer.innerHTML = "<p>Keine weiteren Artikel verfügbar.</p>";
+    }
+  } catch (err) {
+    console.error("[Related] Fehler beim Laden:", err);
+    relatedContainer.innerHTML = "<p>Artikel konnten nicht geladen werden.</p>";
+  }
 });
