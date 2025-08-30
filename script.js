@@ -177,51 +177,58 @@ document.addEventListener("DOMContentLoaded", () => {
   // =====================
   // Weitere Artikel laden
   // =====================
-  const relatedContainer = document.querySelector(".related-articles .blog-articles");
-  if (!relatedContainer) {
-    console.log("[Related] Keine .related-articles gefunden → Script bricht hier ab");
+  // script.js
+document.addEventListener("DOMContentLoaded", async () => {
+  const relatedSection = document.querySelector(".related-articles .blog-articles");
+
+  if (!relatedSection) {
+    console.log("👉 Keine Related-Articles-Section gefunden – Script läuft nur auf Detailseiten.");
     return;
   }
 
   try {
-    console.log("[Related] Versuche blog.html von GitHub zu laden...");
+    console.log("👉 Versuche Blogübersicht zu laden…");
     const response = await fetch("https://powerlina.github.io/systemischveraendern/blog.html");
-    if (!response.ok) throw new Error("Blogseite konnte nicht geladen werden");
 
-    const htmlText = await response.text();
-    console.log("[Related] Blogseite erfolgreich geladen, Länge:", htmlText.length);
+    if (!response.ok) throw new Error("Fehler beim Laden der Blogübersicht");
 
+    const text = await response.text();
+    console.log("👉 Blogübersicht erfolgreich geladen.");
+
+    // HTML parsen
     const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlText, "text/html");
+    const doc = parser.parseFromString(text, "text/html");
 
-    const allArticles = doc.querySelectorAll(".blog-section .blog-card");
-    console.log("[Related] Gefundene Artikel:", allArticles.length);
+    // Alle Artikel auf der Übersicht holen
+    const articles = Array.from(doc.querySelectorAll(".blog-articles .blog-card"));
+    console.log(`👉 ${articles.length} Artikel auf der Blogübersicht gefunden.`);
 
-    const currentUrl = window.location.pathname.split("/").pop();
-    console.log("[Related] Aktuelle Seite:", currentUrl);
+    if (articles.length === 0) {
+      relatedSection.innerHTML = "<p>Keine weiteren Artikel gefunden.</p>";
+      return;
+    }
 
-    let count = 0;
-    const maxRelated = 3;
+    // Aktuelle Seite erkennen (Dateiname)
+    const currentPage = window.location.pathname.split("/").pop();
+    console.log("👉 Aktuelle Seite:", currentPage);
 
-    allArticles.forEach(article => {
-      const href = article.getAttribute("href");
-      console.log("[Related] Prüfe Artikel:", href);
-
-      if (!href.includes(currentUrl) && count < maxRelated) {
-        console.log("   ➝ Wird als Related hinzugefügt");
-        const clone = article.cloneNode(true);
-        relatedContainer.appendChild(clone);
-        count++;
-      } else {
-        console.log("   ➝ Übersprungen (ist aktuelle Seite oder Limit erreicht)");
-      }
+    // Filter: Nur Artikel, die NICHT die aktuelle Seite sind
+    const filtered = articles.filter(a => {
+      const href = a.getAttribute("href");
+      return href !== currentPage;
     });
 
-    if (count === 0) {
-      console.log("[Related] Keine weiteren Artikel gefunden");
-      relatedContainer.innerHTML = "<p>Keine weiteren Artikel verfügbar.</p>";
-    }
+    console.log(`👉 ${filtered.length} Artikel nach Filter (exkl. aktuelle Seite).`);
+
+    // Maximal 3 Artikel einfügen
+    filtered.slice(0, 3).forEach(article => {
+      relatedSection.appendChild(article.cloneNode(true));
+    });
+
+    console.log("👉 Artikel erfolgreich eingefügt:", relatedSection.querySelectorAll(".blog-card").length);
+
   } catch (err) {
-    console.error("[Related] Fehler beim Laden:", err);
-    relatedContainer.innerHTML = "<p>Artikel konnten nicht geladen werden.</p>";
-  };
+    console.error("❌ Fehler beim Laden der weiteren Artikel:", err);
+    relatedSection.innerHTML = "<p>Artikel konnten nicht geladen werden.</p>";
+  }
+});
