@@ -189,12 +189,20 @@ section {
 .about-text {
     flex: 1;
     color: var(--stahlblau);
-    padding: 2rem 20px;
+    padding: 2rem 20px; /* oben | rechts | unten | links */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+.about-text h3 {
+    margin-right: 40px; /* zusätzlicher Außenabstand */
+}
+
+.about-text p {
+    margin-right: 40px; /* zusätzlicher Außenabstand */
+    text-align: left;
+}
 
 /* ===== Approach ===== */
 
