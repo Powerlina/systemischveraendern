@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <section class="related-articles">
   <h3>Weitere aktuelle Blogartikel</h3>
-  <!-- Platzhalter für die Blogübersicht -->
+  <!-- Blogübersicht -->
 <div id="blog-include"></div>
 
 <script>
@@ -213,6 +213,50 @@ document.addEventListener("DOMContentLoaded", async () => {
 </script>
 
 </section>
+
+<!-- ================= FIREBASE & VIEW COUNTER ================= -->
+<script type="module">
+  // Firebase SDK importieren
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+  // Deine Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBDldnZMkQnOmC_wtJ0p6tt6ADadkUzRak",
+    authDomain: "systemischveraendern.firebaseapp.com",
+    projectId: "systemischveraendern",
+    storageBucket: "systemischveraendern.firebasestorage.app",
+    messagingSenderId: "937662984790",
+    appId: "1:937662984790:web:b15591f5ccb9d892bf41f7",
+    measurementId: "G-PPL2L5R0JP"
+  };
+
+  // Firebase initialisieren
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Views zählen
+  document.addEventListener("DOMContentLoaded", async () => {
+    const viewEl = document.querySelector(".views[data-detail='true']");
+    if (!viewEl) return;
+
+    const id = viewEl.getAttribute("data-id"); // hier: "1"
+    const ref = doc(db, "views", id);
+
+    try {
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        await updateDoc(ref, { count: increment(1) });
+        viewEl.textContent = snap.data().count + 1;
+      } else {
+        await setDoc(ref, { count: 1 });
+        viewEl.textContent = 1;
+      }
+    } catch (err) {
+      console.error("Fehler beim Zählen:", err);
+    }
+  });
+</script>
 
 <script type="module" src="script.js"></script>
 </div>
