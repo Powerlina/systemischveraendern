@@ -912,6 +912,7 @@ font-size: 1.5rem;
         padding: 1rem;
         gap: 1rem;
         border-radius: 0 0 0 8px;
+        z-index: 999;  /* nach vorne holen */
     }
 
     .nav-links a {
@@ -930,6 +931,7 @@ font-size: 1.5rem;
         right: 25px;
         font-size: 2rem;
         transition: color 0.3;
+        z-index: 1000; /* sicherstellen, dass Button klickbar bleibt */
     }
 
     .menu-toggle:hover {
