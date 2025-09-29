@@ -68,6 +68,21 @@
     </section>
 </main>
 
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <p>&copy; <span id="year"></span> Paulina Gräfe – Alle Rechte vorbehalten.</p>
+    <p>
+      <a href="impressum.html" rel="noopener noreferrer" aria-label="Impressum (öffnet die Impressum Seite)">
+        Impressum
+      </a>
+    </p>
+  </div>
+
+  <script>
+    // aktuelles Jahr automatisch einfügen (optional)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</footer>
 
 <!-- ================= FIREBASE & VIEWS LESEN ================= -->
 <script type="module">
