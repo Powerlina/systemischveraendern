@@ -231,6 +231,8 @@ section {
 
 /* ===== Accordion ===== */
 
+/* ===== Accordion ===== */
+
 .accordion-section {
     position: relative;
     background: url('images/heute.jpg') center/cover no-repeat;
@@ -293,6 +295,8 @@ section {
     align-items: center;
     background: transparent; /* Header immer transparent, Hintergrund nur bei active */
     border-bottom: 1px solid #ddd;
+    color: white; /* Standard: geschlossen = weiß */
+    transition: color 0.3s ease;
 }
 
 .accordion-header span {
@@ -307,14 +311,17 @@ section {
     overflow: hidden;
     padding: 0 1rem;
     background: transparent;
-    color: white; /* geschlossen = weiß */
-    transition: max-height 0.35s ease, padding 0.35s ease, color 0.3s ease;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+/* Geöffnete Accordion-Überschrift */
+.accordion-item.active .accordion-header {
+    color: var(--stahlblau); /* offen = dunkelblau */
 }
 
 .accordion-item.active .accordion-content {
     padding: 1rem;
     max-height: 500px; /* JS überschreibt dies dynamisch */
-    color: var(--stahlblau); /* offen = dunkelblau */
 }
 
 .accordion-item.active .accordion-header span {
