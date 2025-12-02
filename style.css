@@ -573,17 +573,19 @@ section {
     margin: 0.25rem 0; 
 } 
 
-.blog-meta { 
-    font-size: 0.9rem; 
-    color: var(--stahlblau); 
-    display: flex; 
-    justify-content: flex-start; 
-    margin-top: auto; /* immer unten */ 
-} 
+.blog-meta {
+    font-size: 0.9rem;
+    color: var(--stahlblau);
+    display: flex;
+    justify-content: space-between; /* links-rechts */
+    align-items: center; /* vertikal zentriert */
+    width: 100%; /* volle Breite der Karte */
+    margin-top: auto; /* immer unten */
+}
 
-.blog-meta span { 
-    display: block; 
-    font-weight: bold; 
+.blog-meta span {
+    font-weight: bold;
+    display: inline-block; /* sicherstellen, dass sie sich korrekt im Flex-Container verhalten */
 }
 
 /* ===== Animationen ===== */
