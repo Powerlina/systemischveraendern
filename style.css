@@ -133,12 +133,6 @@ section {
     background: rgba(0, 0, 0, 0.3);
 }
 
-.overlay1 {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.1);
-}
-
 /* Türkises Band über ganze Breite */ 
 .turquoise-band { 
     background-color: var(--tuerkis); 
