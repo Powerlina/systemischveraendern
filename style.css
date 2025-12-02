@@ -225,8 +225,6 @@ section {
 
 /* ===== Accordion ===== */
 
-/* ===== Accordion ===== */
-
 .accordion-section {
     position: relative;
     background: url('images/heute.jpg') center/cover no-repeat;
@@ -507,14 +505,20 @@ section {
 }
 
 
-/* ===== Blog Übersicht Seite ===== */ 
-.blog-section { 
-    background-color: var(--tuerkis); 
-    padding: 4rem 20px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-} 
+/* ===== Blog Übersicht Seite ===== */
+.blog-section {
+    background-color: var(--tuerkis);
+    padding: 4rem 20px;
+}
+
+.blog-articles { 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* immer 2 Spalten */
+    gap: 2rem;
+    max-width: 1000px; /* max Breite der gesamten Blog-Section */ 
+    margin: 0 auto;
+    justify-content: center; /* <-- neue Zeile: Karten mittig */
+}
 
 .blog-section-title { 
     font-family: 'Poppins', sans-serif; 
@@ -524,14 +528,6 @@ section {
     margin-top: 15rem;
     text-align: center; 
 } 
-
-.blog-articles { 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* immer 2 Spalten */
-    gap: 2rem;
-    max-width: 1000px; /* max Breite der gesamten Blog-Section */ 
-    margin: 0 auto;
-}
 
 .blog-card { 
     display: flex; 
@@ -567,10 +563,11 @@ section {
     font-size: 1.5rem; 
     font-weight: 600; 
     line-height: 1.4; 
-    height: 6.0rem; /* Platz für bis zu 4 Zeilen */ 
+    height: 6rem; /* Platz für bis zu 4 Zeilen */ 
     overflow: hidden; 
     margin: 0 0 1.2rem 0; /* Abstand nach unten, damit Meta nicht überlappt */ 
 } 
+
 .blog-card p { 
     font-size: 0.95rem; 
     margin: 0.25rem 0; 
@@ -580,7 +577,7 @@ section {
     font-size: 0.9rem; 
     color: var(--stahlblau); 
     display: flex; 
-    justify-content: space-between; 
+    justify-content: flex-start; 
     margin-top: auto; /* immer unten */ 
 } 
 
