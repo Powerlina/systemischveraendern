@@ -264,7 +264,6 @@ section {
     transition: transform 0.6s ease, opacity 0.6s ease, background 0.3s ease;
 }
 
-
 .accordion-item.active {
     background: var(--offwhite); /* nur aktives Item hat weißen Hintergrund */
 }
@@ -298,16 +297,18 @@ section {
 
 /* Smooth Accordion Content Animation */
 .accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 1rem;
-  background: transparent;
-  transition: max-height 0.35s ease, padding 0.35s ease;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    background: transparent;
+    color: white; /* geschlossen = weiß */
+    transition: max-height 0.35s ease, padding 0.35s ease, color 0.3s ease;
 }
 
 .accordion-item.active .accordion-content {
-  padding: 1rem;
-  max-height: 500px; /* JS überschreibt dies dynamisch */
+    padding: 1rem;
+    max-height: 500px; /* JS überschreibt dies dynamisch */
+    color: var(--stahlblau); /* offen = dunkelblau */
 }
 
 .accordion-item.active .accordion-header span {
