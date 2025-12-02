@@ -588,6 +588,16 @@ section {
     display: inline-block; /* sicherstellen, dass sie sich korrekt im Flex-Container verhalten */
 }
 
+.blog-meta1 {
+    font-size: 0.9rem;
+    color: var(--stahlblau);
+    display: flex;
+    justify-content: flex-start; /* links-rechts */
+    align-items: center; /* vertikal zentriert */
+    width: 100%; /* volle Breite der Karte */
+    margin-top: auto; /* immer unten */
+}
+
 /* ===== Animationen ===== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
