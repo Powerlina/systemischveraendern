@@ -488,7 +488,7 @@ section {
 }
 
 .contact-info table {
-  width: 100%;
+  width: 100%; /* verhindert, dass sie auf kleinen Bildschirmen rausläuft */
   border-collapse: collapse;
   text-align: center;
 }
@@ -504,6 +504,10 @@ section {
   color: var(--stahlblau);
 }
 
+/* Telefonnummer nicht umbrechen */
+.contact-info td:first-child {
+  white-space: nowrap;
+}
 
 /* ===== Blog Übersicht Seite ===== */
 .blog-section {
