@@ -116,7 +116,7 @@ section {
 .hero {
     position: relative;
     height: 100vh;
-    background: url('images/start.jpg') center/cover no-repeat;
+    background: url('images/start.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -227,7 +227,7 @@ section {
 
 .accordion-section {
     position: relative;
-    background: url('images/heute.jpg') center/cover no-repeat;
+    background: url('images/heute.webp') center/cover no-repeat;
     max-width: 1200px;
     margin: 0 auto;
     padding: 4rem 20px 2rem 20px;
