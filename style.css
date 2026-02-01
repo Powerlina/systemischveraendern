@@ -201,7 +201,7 @@ section {
 
 .about-text p {
     margin-right: 40px; /* zusätzlicher Außenabstand */
-    text-align: left;
+    text-align: justify;
 }
 
 /* ===== Approach ===== */
