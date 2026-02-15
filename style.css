@@ -1232,7 +1232,7 @@ main a:hover {
     text-align: center;
     }
 
-    p, li, td {
+    p, li, td, ol {
     text-align: left;
     }
 
