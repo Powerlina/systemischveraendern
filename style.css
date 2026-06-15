@@ -46,6 +46,14 @@ h1, h2, h3 {
     text-align: center;
 }
 
+ul {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--stahlblau);
+    line-height: 1.6;
+}
+
 .highlight {
     color: var(--terracotta);
 }
